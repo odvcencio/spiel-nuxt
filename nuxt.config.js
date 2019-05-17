@@ -1,4 +1,5 @@
 import pkg from './package'
+import webpack from 'webpack'
 
 export default {
   mode: 'universal',
@@ -24,12 +25,18 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    'video.js/dist/video-js.css',
+    'videojs-record/dist/css/videojs.record.css'
+  ],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '~plugins/upchunk', ssr: false },
+    '@/plugins/aws',
+  ],
 
   /*
    ** Nuxt.js modules
@@ -39,7 +46,10 @@ export default {
     '@nuxtjs/axios',
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/vuetify',
+    'nuxt-buefy',
+    'nuxt-fontawesome'
   ],
   /*
    ** Axios module configuration
@@ -48,10 +58,31 @@ export default {
     // See https://github.com/nuxt-community/axios-module#options
   },
 
+  buefy: {
+    materialDesignIcons: false,
+    defaultIconPack: 'fas',
+    defaultIconComponent: 'font-awesome-icon'
+  },
+
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
+  },
+
   /*
    ** Build configuration
    */
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        videojs: 'video.js', 'window.videojs': 'video.js',
+        RecordRTC: 'recordrtc', 'window.RecordRTC': 'recordrtc'
+      })
+    ],
     postcss: {
       preset: {
         features: {
@@ -65,13 +96,13 @@ export default {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+
       }
+
+      config.resolve.alias['videojs'] = 'video.js'
+      config.resolve.alias['WaveSurfer'] = 'wavesurfer.js'
+      config.resolve.alias['RecordRTC'] = 'recordrtc'
+      config.resolve.alias['vue'] = 'vue/dist/vue.js'
     }
   }
 }
