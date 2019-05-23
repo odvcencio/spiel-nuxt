@@ -13,7 +13,7 @@
               <span class="icon has-text-white mx-auto">
                 <div v-bind:class="[{ checked:   isSelected(id) },
                                     { unchecked: !isSelected(id) }]" >
-                  <b-icon icon="fas fa-plus"></b-icon>
+                  <b-icon pack="fas" icon="plus"></b-icon>
                 </div>
               </span>
           </b-checkbox-button>

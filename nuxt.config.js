@@ -15,7 +15,16 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'videojs.min.css' },
+      { rel: 'stylesheet', href: 'videojs.record.css' }
+    ],
+    script: [
+      { src: 'video.min.js' },
+      { src: "RecordRTC.js" },
+      { src: 'videojs.record.js' }
+    ]
   },
 
   // generate dynamic routes, do this for spiels only
@@ -26,7 +35,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#000' },
 
   /*
    ** Global CSS

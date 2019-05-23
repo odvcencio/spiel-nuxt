@@ -3,8 +3,7 @@
     <div class="modal-card-body px-2 home-bg">
       <div class="columns is-centered">
         <div class="column">
-          <div class="center-video">
-            <video playsinline  id="spielPhoto" class="video-js"></video>
+          <div id="container" class="center-video">
           </div>
         </div>
       </div>
@@ -28,11 +27,8 @@
 
 <script>
 import videojs from 'video.js';
-//import '../../assets/ts-ebml.js';
-import 'video.js/dist/video-js.css';
 import { mapGetters, mapState } from 'vuex';
 import user from '@/api/user';
-import record_css from 'videojs-record/dist/css/videojs.record.css';
 import 'videojs-record/dist/videojs.record.js';
 
 export default {
@@ -90,19 +86,16 @@ export default {
           }
         }
       }
-      this.player = videojs('spielPhoto', options, () => {
-        var msg = 'Using video.js ' + videojs.VERSION +
-                    ' with videojs-record ' + videojs.getPluginVersion('record') +
-                    ' and recordrtc ' + RecordRTC.version;
-                videojs.log(msg);
-      });
+      this.player = videojs('spielPhoto', options);
+
+      console.log(this.player.record())
       this.player.record().getDevice();
     },
     playerDispose() {
       this.player.record().destroy();
     },
     playerGetError() {
-      return this.player.error().message;
+      return this.player.error();
     },
     playerEventError() {
       console.log( this.playerGetError() )
@@ -153,6 +146,10 @@ export default {
   },
   mounted: function()
   {
+    var container = document.getElementById("container");
+    var videoHTML = '<video id="spielPhoto" class="video-js"></video>'
+    container.innerHTML = videoHTML
+
     window.playerEvents = this;
     this.playerInitialize();
     this.playerSetupEvents();

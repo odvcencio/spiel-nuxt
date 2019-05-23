@@ -35,7 +35,6 @@ export default {
 
       this.player.ready(function() {
         this.isReady = true;
-
       });
     },
     playerDispose()
@@ -75,7 +74,6 @@ export default {
     },
   },
   mounted: function() {
-    console.log(this.link)
     window.playerEvents = this;
     this.playerInitialize();
     this.playerSetupEvents();

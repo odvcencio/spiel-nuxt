@@ -303,9 +303,8 @@ export default {
     }
   },
   mounted: function() {
-    if (this.getLoadStatus == 2) {
-      this.setAccountInfo();
-    }
+    this.setAccountInfo();
+    console.log(this.account)
   }
 }
 </script>
