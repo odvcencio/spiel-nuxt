@@ -1,8 +1,8 @@
 <template>
-  <div id="app-layout">
-    <v-app>
+  <div>
+    <v-app class="app-layout">
       <NavBar />
-        <Nuxt />
+        <Nuxt/>
       <Footer />
     </v-app>
   </div>
@@ -11,7 +11,8 @@
 <script>
 import NavBar from '@/components/core/NavBar.vue'
 import Footer from '@/components/core/Footer.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+const Cookie = process.client ? require('js-cookie') : undefined
 
 const default_layout = "default";
 
@@ -23,6 +24,9 @@ export default {
     ...mapGetters({
       isLoggedIn: 'user/isLoggedIn'
     }),
+    ...mapState({
+      token: state => state.user.accessToken
+    })
   },
   components: {
     NavBar,
@@ -64,11 +68,11 @@ $colors: (
 @import "~buefy/src/scss/buefy";
 @import '~bulma-divider';
 
-#app-layout {
+.app-layout {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(234, 234, 234);
-  height:100vh;
+  background: rgb(234, 234, 234) !important;
+  height:100%;
   width:100%;
   display: flex;
   flex-direction: column;

@@ -88,19 +88,16 @@ export const getters = {
 
 // actions
 export const actions = {
-  getAccountDetails ({ commit }) {
-    return new Promise((resolve, reject) => {
-      commit('setAccountLoadStatus', 1);
+  async getAccountDetails ({ commit, state }) {
+    let uri = 'https://dev.tryspiel.com/api/v1/account'
+    const config = {
+      headers: {
+        'Authorization': state.accessToken
+      }
+    }
 
-      user.getAccount(
-        account => {
-          commit('setAccount', account)
-          commit('setAccountLoadStatus', 2);
-          resolve()
-        },
-        state.accessToken
-      )
-    })
+    const { data } = await this.$axios.get(uri, config)
+    commit('setAccount', data.data.user)
   },
   checkLoggedInUser ({ commit }) {
     return new Promise((resolve, reject) => {
@@ -157,7 +154,7 @@ export const actions = {
 }
 
 // mutations
-const mutations = {
+export const mutations = {
   setAccount (state, account) {
     if (account.first_name) {
       state.firstName      = account.first_name

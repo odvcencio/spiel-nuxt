@@ -60,8 +60,7 @@ export default {
     },
     openNewSpielTab(id) {
       const routeData = this.$router.resolve({
-        name: 'spiel',
-        params: { id: `${id}` }
+        path: `/spiel/${id}`,
       })
       window.open(routeData.href, '_blank')
     }

@@ -184,6 +184,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 .back-to-questions {
   padding-bottom: 20px;

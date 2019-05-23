@@ -1,5 +1,6 @@
 import pkg from './package'
 import webpack from 'webpack'
+import axios from 'axios'
 
 export default {
   mode: 'universal',
@@ -15,6 +16,11 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  },
+
+  // generate dynamic routes, do this for spiels only
+  generate: {
+
   },
 
   /*
@@ -36,6 +42,7 @@ export default {
   plugins: [
     { src: '~plugins/upchunk', ssr: false },
     '@/plugins/aws',
+    { src: '~/plugins/localStorage', ssr: false }
   ],
 
   /*
@@ -90,6 +97,7 @@ export default {
         }
       }
     },
+    vendor: ['video.js'],
     /*
      ** You can extend webpack config here
      */

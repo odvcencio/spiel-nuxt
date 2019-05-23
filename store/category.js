@@ -22,7 +22,6 @@ export const actions = {
 // mutations
 export const mutations = {
   setCategories (state, categories) {
-    console.log('set', categories)
     state.categories = categories;
   },
 }

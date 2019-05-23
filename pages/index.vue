@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div>
+    <!-- <div>
       <logo />
       <h1 class="title">
         web_ssr
@@ -19,7 +19,7 @@
           >GitHub</a
         >
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -27,6 +27,9 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  fetch ({ params, redirect }) {
+    redirect(301, '/home')
+  },
   components: {
     Logo
   }

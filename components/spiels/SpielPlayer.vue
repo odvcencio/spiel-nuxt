@@ -1,13 +1,12 @@
 <template>
-  <div class="container">
-    <div class="center-video video-container pt-5">
+    <div class="pt-5">
       <video id="spielPlayer" class="video-js"></video>
     </div>
-  </div>
 </template>
 
 <script>
 import videojs from 'video.js';
+import "video.js/dist/video-js.css";
 
 export default {
   name: 'SpielPlayer',
@@ -28,7 +27,16 @@ export default {
   methods: {
     playerInitialize()
     {
-      this.player = videojs('spielPlayer', { "controls": true, "autoplay": true, "preload": "auto" });
+      this.player = videojs('spielPlayer', {
+        "controls": true,
+        "autoplay": true,
+        "preload": "auto"
+      });
+
+      this.player.ready(function() {
+        this.isReady = true;
+
+      });
     },
     playerDispose()
     {
@@ -66,8 +74,8 @@ export default {
       this.player.on('ready', function(){ window.playerEvents.playerEventReady(); });
     },
   },
-  mounted: function()
-  {
+  mounted: function() {
+    console.log(this.link)
     window.playerEvents = this;
     this.playerInitialize();
     this.playerSetupEvents();

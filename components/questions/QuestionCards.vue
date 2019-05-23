@@ -89,8 +89,7 @@ export default {
     selectQuestion: function(id) {
       if (this.clickedOnUser == false) {
         this.$router.push({
-          name: 'question',
-          params: { id: `${id}` }
+          path: `/question/${id}`
         })
       }
       this.clickedOnUser = false

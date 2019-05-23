@@ -102,7 +102,8 @@ export default {
       needsConfirm: state => state.user.needsConfirm,
       storedEmail:  state => state.user.email,
       storedPass:   state => state.user.password,
-      userError:    state => state.user.userError
+      userError:    state => state.user.userError,
+      token:        state => state.user.accessToken
     }),
   },
   methods: {
@@ -124,12 +125,14 @@ export default {
         this.$store.dispatch('user/login', creds)
           .then(
             result => {
-              this.$store.dispatch('user/getAccountDetails').then(() => {
-                this.$parent.close()
-              });
+              console.log(result)
+              this.$store.dispatch('user/getAccountDetails').then(
+                () => {
+                  this.$parent.close()
+                });
             },
             error => {
-              if (this.process.client) {
+              if (process.client) {
                 toast({
                   message: `Error: ${error.message}`,
                   type: "is-danger",

@@ -1,7 +1,7 @@
 {
-  "name": "web_ssr",
+  "name": "Spiel",
   "version": "1.0.0",
-  "description": "SSR spiel web app",
+  "description": "Spiel web app",
   "author": "Spiel",
   "private": true,
   "scripts": {
@@ -34,7 +34,8 @@
     "ts-ebml": "^2.0.2",
     "video.js": "^7.5.4",
     "videojs-record": "^3.6.0",
-    "vuetify": "^1.5.14"
+    "vuetify": "^1.5.14",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
