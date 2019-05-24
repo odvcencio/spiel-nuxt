@@ -1,5 +1,5 @@
 <template>
-  <div v-show="loaded" class="mx-auto pt-4">
+  <div class="mx-auto pt-4">
     <div v-if="isFounder">
       <div class="has-text-centered column pb-4">
         Please Complete Your Profile Before Proceeding
@@ -45,7 +45,6 @@ import user from '@/api/user'
 import { toast } from "bulma-toast";
 
 export default {
-  name: 'Account',
   props: {
     isFounder: {
       type: Boolean
@@ -125,7 +124,6 @@ export default {
               this.$store.dispatch('user/getAccountDetails').
                 then(() => {
                   this.emptySubmit = true;
-                  console.log(this.emptySubmit);
                 });
             }
           },
@@ -204,18 +202,5 @@ export default {
       this.update();
     }
   },
-  mounted: function () {
-    if (this.isLoggedIn) {
-      this.$store.dispatch('user/getAccountDetails')
-    } else {
-      this.$router.push('home')
-    }
-  }
 }
 </script>
-
-<style>
-.fa-exclamation-circle::before {
-  display: none;
-}
-</style>

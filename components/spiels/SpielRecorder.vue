@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-if="!isUpload">
-      <div class="video-container">
-        <noSsr>
-          <video class="video-js" id="spielRecorder" playsinline ></video>
-        </noSsr>
-      </div>
+      <div id="record" class="center-video"></div>
       <br />
       <div class="field is-grouped is-grouped-centered">
         <p class="control">
@@ -42,6 +38,10 @@
 import videojs from 'video.js';
 import spiels from '../../api/spiels'
 import { mapGetters, mapState } from 'vuex'
+import { Decoder, Encoder, tools, Reader } from 'ts-ebml';
+const UpChunk = process.client ? require('@mux/upchunk/dist/upchunk.js') : '';
+const Record  = process.client ? require('videojs-record/dist/videojs.record.js') : ''
+
 
 export default {
   name: 'SpielRecorder',
@@ -77,22 +77,17 @@ export default {
       return this.duration == 0.0 ? 'RECORD' : 'RETAKE'
     }
   },
-  created: function() {
-    let upchunk = document.createElement('script');
-    upchunk.setAttribute('src', 'https://unpkg.com/@mux/upchunk@1')
-    document.head.appendChild(UpChunk);
-  },
   mounted: function() {
-    if (process.client) {
-      window.playerEvents = this
-      this.playerInitialize()
-      this.playerSetupEvents()
-    }
+    var container = document.getElementById("record");
+    var videoHTML = '<video class="video-js" id="spielRecorder"></video>'
+    container.innerHTML = videoHTML
+
+    window.playerEvents = this
+    this.playerInitialize()
+    this.playerSetupEvents()
   },
   beforeDestroy: function() {
-    if (process.client) {
-      this.playerDispose()
-    }
+    this.playerDispose()
   },
   methods: {
     returnToQuestions() {
@@ -168,6 +163,7 @@ export default {
     },
     playerDispose() {
       this.player.record().destroy()
+      this.player = ''
     },
     playerGetError() {
       return this.player.error().message
@@ -250,29 +246,27 @@ export default {
       }
     },
     playerSetupEvents() {
-      if (process.client) {
-        this.player.on('ended', function() {
-          window.playerEvents.playerEventEnded()
-        })
-        this.player.on('volumechange', function() {
-          window.playerEvents.playerEventVolume()
-        })
-        this.player.on('error', function() {
-          window.playerEvents.playerEventError()
-        })
-        this.player.on('ready', function() {
-          window.playerEvents.playerEventReady()
-        })
-        this.player.on('finishRecord', function() {
-          window.playerEvents.finishRecord()
-        })
-        this.player.on('finishConvert', function() {
-          window.playerEvents.finishConvert()
-        })
-        this.player.on('startRecord', function() {
-          window.playerEvents.startRecord()
-        })
-      }
+      this.player.on('ended', function() {
+        window.playerEvents.playerEventEnded()
+      })
+      this.player.on('volumechange', function() {
+        window.playerEvents.playerEventVolume()
+      })
+      this.player.on('error', function() {
+        window.playerEvents.playerEventError()
+      })
+      this.player.on('ready', function() {
+        window.playerEvents.playerEventReady()
+      })
+      this.player.on('finishRecord', function() {
+        window.playerEvents.finishRecord()
+      })
+      this.player.on('finishConvert', function() {
+        window.playerEvents.finishConvert()
+      })
+      this.player.on('startRecord', function() {
+        window.playerEvents.startRecord()
+      })
     },
     blobToFile(theBlob, fileName) {
       return new File([theBlob], fileName)

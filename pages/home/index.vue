@@ -100,9 +100,6 @@ export default {
       }
     }
   },
-  created: function() {
-    this.fetchQuestionsForCategory()
-  },
   mounted: function() {
     if (this.getLoadStatus == 2 && this.hasIncompleteProfile) {
       this.showCompleteProfileLink = true

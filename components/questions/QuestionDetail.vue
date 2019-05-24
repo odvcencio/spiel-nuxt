@@ -66,13 +66,7 @@
     <div>
       <hr class="divider-card" />
     </div>
-    <div v-if="answerQuestion">
-      <SpielRecorder
-        :question-i-d="questionID"
-        @return-to-questions="returnToQuestions"
-      ></SpielRecorder>
-    </div>
-    <div v-else-if="!question.founder">
+    <div v-if="!question.founder">
       <a class="back-to-questions" @click="isAnswerQuestion">
         <span>Answer Question</span>
       </a>
@@ -124,11 +118,6 @@ export default {
   mounted: function() {
     this.getQuestionByID(this.$route.params.id)
   },
-  created: function() {
-    if (process.client) {
-      require('../spiels/SpielRecorder.vue')
-    }
-  },
   methods: {
     getQuestionByID(id) {
       if (id != 0) {
@@ -143,6 +132,15 @@ export default {
     isAnswerQuestion() {
       if (this.isLoggedIn && !this.question.founder) {
         this.answerQuestion = true
+
+        this.$modal.open({
+          parent: this,
+          component: SpielRecorder,
+          hasModalCard: true,
+          props: {
+            questionID: this.questionID
+          }
+        })
       } else {
         this.$modal.open({
           parent: this,
@@ -161,7 +159,7 @@ export default {
           username: `${username}`
         }
       })
-      window.open(routeData.href, '_blank')
+    //  window.open(routeData.href, '_blank')
     },
     returnToQuestions() {
       this.answerQuestion = false

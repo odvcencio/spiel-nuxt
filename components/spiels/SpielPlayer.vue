@@ -1,6 +1,6 @@
 <template>
     <div class="pt-5">
-      <video id="spielPlayer" class="video-js"></video>
+      <video id="spielPlayer" class="video-js center-video"></video>
     </div>
 </template>
 

@@ -50,7 +50,7 @@ export default {
    */
   plugins: [
     { src: '~plugins/upchunk', ssr: false },
-    '@/plugins/aws',
+    { src: '@/plugins/aws', ssr: false },
     { src: '~/plugins/localStorage', ssr: false }
   ],
 

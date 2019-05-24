@@ -3,7 +3,7 @@
     <div class="modal-card-body px-2 home-bg">
       <div class="columns is-centered">
         <div class="column">
-          <div id="container" class="center-video">
+          <div id="container-video" class="center-video">
           </div>
         </div>
       </div>
@@ -29,7 +29,6 @@
 import videojs from 'video.js';
 import { mapGetters, mapState } from 'vuex';
 import user from '@/api/user';
-import 'videojs-record/dist/videojs.record.js';
 
 export default {
   name: 'ProfilePhotoTaker',
@@ -87,8 +86,6 @@ export default {
         }
       }
       this.player = videojs('spielPhoto', options);
-
-      console.log(this.player.record())
       this.player.record().getDevice();
     },
     playerDispose() {
@@ -144,9 +141,8 @@ export default {
       this.player.on('finishConvert', function(){ window.playerEvents.finishConvert(); });
     },
   },
-  mounted: function()
-  {
-    var container = document.getElementById("container");
+  mounted: function() {
+    var container = document.getElementById("container-video");
     var videoHTML = '<video id="spielPhoto" class="video-js"></video>'
     container.innerHTML = videoHTML
 
@@ -154,8 +150,7 @@ export default {
     this.playerInitialize();
     this.playerSetupEvents();
   },
-  beforeDestroy: function()
-  {
+  beforeDestroy: function() {
     this.playerDispose();
   }
 }
