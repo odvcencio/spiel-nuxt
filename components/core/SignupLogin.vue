@@ -88,7 +88,6 @@ export default {
   watch: {
     enterPressed(newValue) {
       if (newValue) {
-        console.log('here')
         if (this.isSignup){
           this.signUpUser();
         } else {
@@ -108,8 +107,6 @@ export default {
   },
   methods: {
     enterWasPressed() {
-      console.log('here')
-
       if (this.isSignup){
         this.signUpUser();
       } else {
@@ -125,7 +122,6 @@ export default {
         this.$store.dispatch('user/login', creds)
           .then(
             result => {
-              console.log(result)
               this.$store.dispatch('user/getAccountDetails').then(
                 () => {
                   this.$parent.close()

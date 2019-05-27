@@ -88,23 +88,36 @@ export const getters = {
 
 // actions
 export const actions = {
-  async getAccountDetails ({ commit, state }) {
+  async getAccountDetails ({ commit, dispatch, state }) {
     let uri = 'https://dev.tryspiel.com/api/v1/account'
-    const config = {
-      headers: {
-        'Authorization': state.accessToken
+    var token = state.accessToken
+
+    if (state.accessToken) {
+      const config = {
+        headers: {
+          'Authorization': token
+        }
+      }
+
+      try {
+        const { data } = await this.$axios.get(uri, config)
+        commit('setAccount', data.data.user)
+      } catch (e) {
+        if (e.response.status === 401 ||
+            e.response.data.error_message === 'Token is expired') {
+          console.log('expired or unauthorized')
+          token = await dispatch('checkLoggedInUser')
+          console.log(token)
+        }
       }
     }
-
-    const { data } = await this.$axios.get(uri, config)
-    commit('setAccount', data.data.user)
   },
-  checkLoggedInUser ({ commit }) {
+  async checkLoggedInUser ({ commit }) {
     return new Promise((resolve, reject) => {
       user.checkAuth(
-        user => {
-          commit('setAuth', user);
-          resolve()
+        token => {
+          commit('setAuth', token);
+          resolve(token)
         }
       )
     })
@@ -113,9 +126,9 @@ export const actions = {
     return new Promise((resolve, reject) => {
       user.login(
         creds,
-        user => {
-          commit('setAuth', user)
-          resolve(user)
+        token => {
+          commit('setAuth', token)
+          resolve()
         },
         error => {
           commit('setUserError', error)

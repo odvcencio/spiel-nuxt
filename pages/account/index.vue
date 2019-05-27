@@ -45,9 +45,6 @@ import user from '@/api/user'
 import { toast } from "bulma-toast";
 
 export default {
-  async fetch ({ store, params }) {
-    await store.dispatch('user/getAccountDetails')
-  },
   props: {
     isFounder: {
       type: Boolean
@@ -151,8 +148,6 @@ export default {
           this.token
         )
       }
-
-
     },
     successToast() {
       if (this.updateAccountSuccess) {

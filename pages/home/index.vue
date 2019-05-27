@@ -57,10 +57,15 @@ export default {
     await store.dispatch('category/fetchCategories')
   },
   async asyncData (context) {
+    var shouldShowLink = false
+
+    if (context.store.state.user.accessToken && context.store.getters['user/hasIncompleteProfile']) {
+      shouldShowLink = true
+    }
     let uri = 'https://dev.tryspiel.com/api/v1/questionsByCategory?'
     let { data } = await context.$axios.get(uri)
 
-    return { questions: data.data.questions }
+    return { questions: data.data.questions, showCompleteProfileLink: shouldShowLink }
   },
   name: 'Home',
   components: {
@@ -94,18 +99,11 @@ export default {
   watch: {
     getLoadStatus(newStatus) {
       if (newStatus == 2 && this.hasIncompleteProfile) {
-        this.showCompleteProfileLink = true
+        //this.showCompleteProfileLink = true
       } else {
         this.showCompleteProfileLink = false
       }
     }
-  },
-  mounted: function() {
-    if (this.getLoadStatus == 2 && this.hasIncompleteProfile) {
-      this.showCompleteProfileLink = true
-    }
-
-    this.fetchQuestionsForCategory()
   },
   methods: {
     backToQuestions() {

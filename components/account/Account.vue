@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto pt-4">
-    <div v-if="isFounder">
+    <div v-show="isFounder">
       <div class="has-text-centered column pb-4">
         Please Complete Your Profile Before Proceeding
       </div>
@@ -148,8 +148,6 @@ export default {
           this.token
         )
       }
-
-
     },
     successToast() {
       if (this.updateAccountSuccess) {

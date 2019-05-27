@@ -1,5 +1,7 @@
 import { Auth } from 'aws-amplify';
 import axios from 'axios'
+const Cookie = process.client ? require('js-cookie') : undefined
+const consola = require('consola')
 
 export default {
   updateAccount(cb, account, accessToken) {
@@ -84,7 +86,7 @@ export default {
     Auth.currentSession().then(
       session => {
         let accessToken = session.accessToken.jwtToken;
-        console.log(session)
+        Cookie.set('auth', accessToken)
         cb(accessToken)
       }).catch((error) => {
         console.log(error.response)
@@ -94,6 +96,7 @@ export default {
     Auth.signIn(creds.email.toLowerCase(), creds.password).then(
       user => {
         let accessToken = user.signInUserSession.accessToken.jwtToken;
+        Cookie.set('auth', accessToken)
         cb(accessToken);
       }).catch((err) => {
         cbError(err)
@@ -118,7 +121,10 @@ export default {
   signOut(cb) {
     Auth.signOut({ global: true })
       .then(
-        data => cb(data)
+        data => {
+          Cookie.remove('auth');
+          cb(data)
+        }
       )
       .catch(
         err => console.log(err)

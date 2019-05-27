@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="pt-3">
     <div v-for="question in questions"
          :key="question.id"
          class="home-bg question-cell"

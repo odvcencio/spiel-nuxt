@@ -9,7 +9,7 @@
             <v-img :src="this.profilePicture" alt="avatar"> </v-img>
         </v-avatar>
       </button>
-        <b-dropdown-item class="has-text-centered" has-link aria-role="listitem">
+        <b-dropdown-item class="has-text-centered mx-auto" has-link aria-role="listitem">
           <div class="has-text-centered">
             <nuxt-link to="/account">
               My Profile
@@ -55,6 +55,7 @@ export default {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    margin-left: -20px;
     display: flex;
   }
   .dropdown-menu:before {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <v-app class="app-layout">
       <NavBar />
         <Nuxt/>
@@ -32,6 +32,17 @@ export default {
     NavBar,
     Footer
   },
+  async mounted() {
+    let token = window.localStorage.getItem('CognitoIdentityServiceProvider.3t2gp1mkch8p4mm3eksg7gs7tj.oscar@tryspiel.com.accessToken')
+
+    if (token !== null) {
+      this.$store.commit('user/setAuth', token)
+      Cookie.set('auth', token)
+
+      const getUser = this.$store.dispatch('user/getAccountDetails')
+      await getUser
+    }
+  }
 }
 </script>
 
@@ -72,10 +83,15 @@ $colors: (
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: rgb(234, 234, 234) !important;
-  height:100%;
-  width:100%;
+  margin: 0 auto;
+  padding: 30px;
   display: flex;
   flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  width: 100vw;
 }
 
 @font-face {

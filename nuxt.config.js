@@ -3,6 +3,16 @@ import webpack from 'webpack'
 import axios from 'axios'
 
 export default {
+  router: {
+    middleware: 'check-auth'
+  },
+  env: {
+    cognitoRegion:   'us-east-1',
+    cognitoPoolID:   'us-east-1_8iKxdd5uh',
+    cognitoClientID: '3t2gp1mkch8p4mm3eksg7gs7tj',
+    localStorageKey: 'CognitoIdentityServiceProvider.'
+  },
+
   mode: 'universal',
 
   /*
@@ -15,16 +25,6 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'videojs.min.css' },
-      { rel: 'stylesheet', href: 'videojs.record.css' }
-    ],
-    script: [
-      { src: 'video.min.js' },
-      { src: "RecordRTC.js" },
-      { src: 'videojs.record.js' }
-    ]
   },
 
   // generate dynamic routes, do this for spiels only
@@ -50,7 +50,7 @@ export default {
    */
   plugins: [
     { src: '~plugins/upchunk', ssr: false },
-    { src: '@/plugins/aws', ssr: false },
+    { src: '@/plugins/aws' },
     { src: '~/plugins/localStorage', ssr: false }
   ],
 

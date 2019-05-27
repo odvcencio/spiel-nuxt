@@ -1,15 +1,24 @@
-export const state = () => ({
-
-})
+import Cookies from 'universal-cookie';
+import user from '../api/user'
+import { Auth } from 'aws-amplify';
 
 export const actions = {
-  async nuxtServerInit({ dispatch }, { req }) {
-    // global.document = {};
-    // global.document.cookie = req.headers.cookie;
-    console.log(req.headers)
-    // We need to wait until attributes updated, because once page
-    // is rendered - changes to store from the server won't affect
-    // client side store
-    //dispatch('user/checkLoggedInUser');
-  },
+  async getAccountDetailsFromServer ({ commit, dispatch, state }, token) {
+    let uri = 'https://dev.tryspiel.com/api/v1/account'
+    const config = {
+      headers: {
+        'Authorization': token
+      }
+    }
+    try {
+      const { data } = await this.$axios.get(uri, config)
+      commit('user/setAccount', data.data.user)
+    } catch (e) {
+      if (e.response &&
+        e.response.data.error_message === 'Token is expired') {
+        const cookies = new Cookies();
+        cookies.remove('auth')
+      }
+    }
+  }
 }

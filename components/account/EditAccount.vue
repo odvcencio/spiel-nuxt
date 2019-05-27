@@ -304,7 +304,6 @@ export default {
   },
   mounted: function() {
     this.setAccountInfo();
-    console.log(this.account)
   }
 }
 </script>

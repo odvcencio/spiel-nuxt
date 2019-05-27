@@ -21,7 +21,7 @@
               </span>
             </nuxt-link>
           </div>
-          <b-dropdown hoverable aria-role="list">
+          <b-dropdown v-show="showItems" hoverable aria-role="list">
             <button class="button is-yellow is-medium mx-2" slot="trigger">
                 <span class="icon has-text-white my-auto">
                   <b-icon pack="fas" icon="ellipsis-h"></b-icon>
@@ -51,7 +51,7 @@
                     Signup
               </button>
             </div>
-            <div v-else class="my-auto">
+            <div v-show="showItems" v-else class="my-auto">
               <AccountMenu/>
             </div>
           </v-toolbar-items>
@@ -83,6 +83,7 @@ export default {
       confirmCode:  '',
       modalOpen:    false,
       enterPressed: false,
+      showItems:    false
     };
   },
   methods: {
@@ -132,6 +133,9 @@ export default {
   },
   components: {
     AccountMenu
+  },
+  mounted: function() {
+    this.showItems = true;
   }
 }
 </script>
