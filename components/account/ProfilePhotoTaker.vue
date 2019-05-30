@@ -1,23 +1,22 @@
 <template>
-  <div class="modal-card mx-auto home-bg" style="max-width:380px; background-color:rgb(241,241,241);">
-    <div class="modal-card-body px-2 home-bg">
-      <div class="columns is-centered">
+  <div class="modal-card home-bg mx-auto">
+    <div class="modal-card-body mx-auto profile-photo-window">
+      <div id="container-video" class="center-video"></div>
+    </div>
+    <div v-if="cameraReady">
+      <div class="columns is-centered pb-2">
         <div class="column">
-          <div id="container-video" class="center-video">
-          </div>
-        </div>
-      </div>
-      <div v-if="cameraReady">
-        <div class="columns is-centered">
-          <div class="column">
-            <div v-if="cameraReady" class="field is-grouped is-grouped-centered">
-              <p class="control">
-                <a class="button is-blue is-medium" @click="startRecording">TAKE</a>
-              </p>
-              <p class="control">
-                <a class="button is-blue is-medium" v-if="readyToShare" @click='share'>SAVE</a>
-              </p>
-            </div>
+          <div v-if="cameraReady" class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-blue is-medium" @click="startRecording">
+                {{ this.captureButtonText }}
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-blue is-medium" v-if="readyToShare" @click='share'>
+                SAVE
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -54,12 +53,23 @@ export default {
     ...mapState({
       token: state => state.user.accessToken
     }),
+    blobHasLength: function () {
+      return Object.entries(this.blob).length !== 0
+    },
+    captureButtonText: function () {
+      return this.blobHasLength ? 'RETAKE' : 'TAKE'
+    }
   },
   methods: {
     pictureUploaded() {
       this.$emit('pic-uploaded', this.getNewPhoto)
     },
     startRecording() {
+      if (this.blobHasLength) {
+        this.blob = {}
+        this.player.record().getDevice();
+        return
+      }
       this.player.record().start();
     },
     stopRecording() {
@@ -157,4 +167,7 @@ export default {
 </script>
 
 <style>
+.profile-photo-window {
+  max-width: 640px;
+}
 </style>

@@ -8,7 +8,7 @@
     <div v-if="hasIncompleteProfile && isLoaded">
       <Account isFounder/>
     </div>
-    <div v-if="questions.length > 0" class="columns is-centered pt-3">
+    <div v-if="questions.length > 0 && !hasIncompleteProfile" class="columns is-centered pt-3">
       <div class="column is-6">
         <QuestionList v-on:notReadyYet="getFounderQuestions" :questions="questions"/>
       </div>

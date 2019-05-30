@@ -7,15 +7,11 @@
             Please Complete Your <a @click="sendToAccount">Profile</a>
           </div>
           <a @click="clickedOnQuestion">
-            <div
-              class="home-bg mb-4 py-4 pl-2 has-text-left has-text-weight-light has-text-grey"
-            >
+            <div class="home-bg mb-4 py-4 pl-2 has-text-left has-text-weight-light has-text-grey">
               What's your question?
             </div>
           </a>
-          <div
-            class="pt-1 has-text-left has-text-grey-light has-text-weight-semibold"
-          >
+          <div class="pt-1 has-text-left has-text-grey-light has-text-weight-semibold">
             Latest Questions
           </div>
           <CategoriesDisplay @selected-categories="fetchQuestionsForCategory"/>
@@ -31,16 +27,6 @@
         </div>
       </div>
     </div>
-    <!-- <div v-else>
-      <div class="columns is-centered pt-5">
-        <div class="column is-4-desktop is-6-tablet is-10-mobile mx-auto has-text-centered">
-          <a class="back-to-questions" @click="backToQuestions">
-            <span>Back To Questions</span>
-          </a>
-          <QuestionDetail :questionID="selectedQuestionID" class="mt-4"/>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
@@ -97,10 +83,10 @@ export default {
     })
   },
   watch: {
-    getLoadStatus(newStatus) {
-      if (newStatus == 2 && this.hasIncompleteProfile) {
-        //this.showCompleteProfileLink = true
-      } else {
+    isLoggedIn(newStatus) {
+      if(newStatus && this.hasIncompleteProfile) {
+        this.showCompleteProfileLink = true
+      } else if (!newStatus) {
         this.showCompleteProfileLink = false
       }
     }

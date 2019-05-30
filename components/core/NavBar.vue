@@ -91,44 +91,32 @@ export default {
       this.enterPressed = true;
     },
     openSignup() {
-      if (!this.modalOpen) {
-        this.modalOpen = true;
-
-        this.$modal.open({
-          parent: this,
-          component: SignupLogin,
-          hasModalCard: true,
-          props: {
-            isSignup:     true,
-            enterPressed: this.enterPressed
-          },
-          onCancel: () => {
-            this.modalOpen = false;
-          }
-        })
-      } else {
-        this.enterWasPressed();
-      }
+      this.$modal.open({
+        parent: this,
+        component: SignupLogin,
+        hasModalCard: true,
+        props: {
+          isSignup:     true,
+          enterPressed: this.enterPressed
+        },
+        onCancel: () => {
+          this.modalOpen = false;
+        }
+      })
     },
     openLogin() {
-      if (!this.modalOpen) {
-        this.modalOpen = true;
-
-        this.$modal.open({
-          parent: this,
-          component: SignupLogin,
-          hasModalCard: true,
-          props: {
-            isSignup:     false,
-            enterPressed: this.enterPressed
-          },
-          onCancel: () => {
-            this.modalOpen = false;
-          }
-        })
-      } else {
-        this.enterWasPressed();
-      }
+      this.$modal.open({
+        parent: this,
+        component: SignupLogin,
+        hasModalCard: true,
+        props: {
+          isSignup:     false,
+          enterPressed: this.enterPressed
+        },
+        onCancel: () => {
+          this.modalOpen = false;
+        }
+      })
     },
   },
   components: {

@@ -1,34 +1,28 @@
 <template>
   <div>
-    <div v-if="!isUpload">
-      <div id="record" class="center-video"></div>
-      <br />
-      <div class="field is-grouped is-grouped-centered">
-        <p class="control">
-          <a
-            v-if="!isRecording"
-            class="button is-blue is-medium"
-            @click="startRecording"
-            >{{ recordButtonText }}</a
-          >
-        </p>
-        <p class="control">
-          <a
-            v-if="isRecording"
-            class="button is-blue is-medium"
-            @click="stopRecording"
-            >STOP</a
-          >
-        </p>
-        <p class="control">
-          <a v-if="readyToShare" class="button is-blue is-medium" @click="share"
-            >SHARE</a
-          >
-        </p>
-      </div>
+    <div id="record" class="center-video"></div>
+    <br />
+    <div class="field is-grouped is-grouped-centered">
+      <p class="control">
+        <a v-if="!isRecording" class="button is-blue is-medium" @click="startRecording">
+          {{ recordButtonText }}
+        </a>
+      </p>
+      <p class="control">
+        <a v-if="isRecording" class="button is-blue is-medium" @click="stopRecording">
+          STOP
+        </a>
+      </p>
+      <p class="control">
+        <a v-if="readyToShare" class="button is-blue is-medium" @click="share">
+          SHARE
+        </a>
+      </p>
     </div>
-    <div v-else>
-      <span class="has-text-centered">Uploading...</span>
+    <div v-if="isUpload">
+      <span class="has-text-centered">
+        Uploading...
+      </span>
       <progress class="progress is-blue" :value="progress" max="100"></progress>
     </div>
   </div>
