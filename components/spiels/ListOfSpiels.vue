@@ -19,9 +19,9 @@
           </div>
           <div class="has-text-weight-light is-size-6">
             {{ spiel.spieler.title }}
-            <span v-if="spiel.spieler.company"
-              >at {{ spiel.spieler.company }}</span
-            >
+            <span v-if="spiel.spieler.company">
+              at {{ spiel.spieler.company }}
+            </span>
             <br />
           </div>
           <div v-if="spiel.duration < 60">

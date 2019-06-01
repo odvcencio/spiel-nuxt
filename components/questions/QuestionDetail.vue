@@ -154,12 +154,9 @@ export default {
     },
     openUserProfileTab(username) {
       const routeData = this.$router.resolve({
-        name: 'profile',
-        params: {
-          username: `${username}`
-        }
+        path: `/profile/${username}`
       })
-    //  window.open(routeData.href, '_blank')
+      window.open(routeData.href, '_blank')
     },
     returnToQuestions() {
       this.answerQuestion = false

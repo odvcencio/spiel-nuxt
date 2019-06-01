@@ -9,7 +9,7 @@
           </br>
           <span class="is-size-5 has-text-weight-light">
             A digital Q&A community for </br>
-            Founders to connect and help one another.
+            Founders to connect with and help one another.
           </span>
         </div>
       </div>
@@ -19,7 +19,7 @@
             Free Forever
           </span>
           </br></br>
-          <button class="button is-blue get-started">
+          <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
             GET STARTED
           </button>
           </br></br>
@@ -40,11 +40,24 @@
           </span>
         </div>
       </div>
-      <div class="columns">
+      <div class="columns py-4">
         <div class="column has-text-centered">
-          <span>
+          <span class="is-size-4 has-text-weight-semibold">
             Top Spotlights of the week
           </span>
+          <div class="py-3">
+            <div class="spotlights mx-2" v-for="spotlight in spotlights" :key="spotlight.id" @click="spotlightClicked(spotlight.id)">
+              <img class="spotlight-photo" :src="spotlight.thumbnail_url" />
+              </br>
+              <span class="is-size-5 has-text-weight-bold">
+                {{ spotlight.spieler.first_name }} {{ spotlight.spieler.last_name }}
+              </span>
+              </br>
+              <span class="is-size-6 has-text-gray has-text-weight-light">
+                {{ spotlight.spieler.title }} at {{ spotlight.spieler.company }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="columns">
@@ -52,6 +65,10 @@
           <span>
             Ready to sign up?
           </span>
+          </br>
+          <button class="button is-yellow brand-buttons has-text-white has-text-weight-semibold" @click="openSignup">
+            TAP ME
+          </button>
         </div>
       </div>
       <div class="columns">
@@ -67,17 +84,55 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import SignupLogin from '~/components/core/SignupLogin.vue'
 
 export default {
-  components: {
-    Logo
+  async asyncData (context) {
+    let uri = 'https://dev.tryspiel.com/api/v1/spotlights'
+    let { data } = await context.$axios.get(uri)
+
+    return { spotlights: data.data.spiels }
+  },
+  data() {
+    return {
+      spotlights: [],
+    }
+  },
+  methods: {
+    spotlightClicked(id) {
+      const routeData = this.$router.resolve({
+        path: `/spiel/${id}`,
+      })
+      window.open(routeData.href, '_blank')
+    },
+    openSignup() {
+      this.$modal.open({
+        parent: this,
+        component: SignupLogin,
+        hasModalCard: true,
+        props: {
+          isSignup:     true,
+          enterPressed: this.enterPressed
+        },
+        onCancel: () => {
+          this.modalOpen = false;
+        }
+      })
+    },
   }
 }
 </script>
 
 <style>
-.get-started {
+.spotlights {
+  display: inline-block;
+  cursor: pointer;
+}
+.spotlight-photo {
+  max-width:  256px;
+}
+
+.brand-buttons {
   width: 300px;
   height: 50px;
 }
