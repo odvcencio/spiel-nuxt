@@ -1,6 +1,38 @@
 <template>
-  <div class="columns pt-5">
-    <div id="container" class="column center-video"></div>
+  <div class="pt-5">
+    <div class="is-size-4 py-2 has-text-centered">
+      {{ this.question.question }}
+    </div>
+    <div class="columns py-2 is-centered has-text-centered">
+      <div id="container" class="column center-video"></div>
+    </div>
+    <div v-if="hasComments" class="columns py-2 is-centered">
+      <div v-for="{ id, commenter, comment, created_time } in comments"
+        :key="id"
+        class="home-bg column is-4">
+        <div class="is-size-5 has-text-left tight-line-height">
+          <v-avatar size="65" color="grey lighten-4" class="mx-1">
+            <v-img
+              :src="commenter.profile_photo_url"
+              alt="avatar">
+            </v-img>
+          </v-avatar>
+          <div class="name-tag">
+            {{ commenter.first_name }} {{ commenter.last_name }}
+            </br>
+            <div class="is-size-6 has-text-gray has-text-weight-light">
+              {{ commenter.title }} at {{ commenter.company }}
+            </div>
+          </div>
+          <div class="name-tag">
+            {{ created_time | formatTime }}
+          </div>
+        </div>
+        <div class="is-size-5 py-2">
+          {{ comment }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -8,6 +40,8 @@
 import SpielPlayer from '@/components/spiels/SpielPlayer.vue'
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 
 export default {
   head: {
@@ -28,8 +62,24 @@ export default {
           spieler:    res.data.data.spiel.spieler,
           question:   res.data.data.spiel.question,
           url:        res.data.data.spiel.video_url,
+          comments:   res.data.data.spiel.comments
         }
       })
+  },
+  computed: {
+    hasComments: function() {
+      return this.comments && this.comments.length > 0
+    }
+  },
+  filters: {
+    formatTime: function(value) {
+      if (!value) return
+      TimeAgo.addLocale(en)
+      const timeAgo = new TimeAgo('en-US')
+      const createdTime = new Date(value)
+
+      return timeAgo.format(Date.now() - createdTime, 'twitter')
+    }
   },
   name: 'Spiel',
   data() {
@@ -37,6 +87,7 @@ export default {
       spiel:     {},
       spieler:   {},
       question:  {},
+      comments:  [],
       url:       '',
       isReady:   false,
       player:    null
@@ -53,8 +104,6 @@ export default {
       var player = videojs(document.getElementById("spielPlayer"), options)
 
       player.on('waiting', () => {
-        console.log('waiting')
-        //player.hide()
       })
       player.on('ready', () => {
         this.isReady = true
@@ -92,9 +141,14 @@ export default {
 </script>
 
 <style>
+.name-tag {
+  display: inline-block;
+}
+
 .show-video {
   visibility: visible;
 }
+
 .vjs-loading-spinner {
   display: none !important;
 }

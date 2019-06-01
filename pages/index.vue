@@ -1,7 +1,7 @@
 <template>
-  <section class="hero founder-container">
+  <section class="pt-5 hero founder-container">
     <div class="hero-body home-bg">
-      <div class="columns">
+      <div class="columns py-3">
         <div class="column has-text-centered">
           <span class="is-size-1 has-text-weight-bold">
             A Founder Community
@@ -13,34 +13,33 @@
           </span>
         </div>
       </div>
-      <div class="columns is-centered">
+      <div class="columns is-centered pt-3 pb-5">
         <div class="column is-6-desktop has-text-centered grey-box">
-          <span class="is-size-5">
+          <div class="is-size-5 py-3">
             Free Forever
-          </span>
-          </br></br>
+          </div>
           <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
             GET STARTED
           </button>
-          </br></br>
-          <span class="is-size-7 has-text-weight-light has-text-gray">
+          <div class="py-3 is-size-7 has-text-weight-light has-text-gray">
             Join a community of everyday creators & professionals
-          </span>
+          </div>
         </div>
       </div>
-      <div class="columns">
-        <div class="column has-text-centered">
-          <span>
+
+      <div class="columns is-vcentered creator py-5">
+        <div class="column container has-text-centered has-text-white">
+          <div class="is-size-2 has-text-weight-bold">
             Connect with Creators
-          </span>
-          </br>
-          <span>
+          </div>
+          <div class="is-size-5">
             Within Spiel we provide everyday creators like </br>
             you the tools to faciliate meaningful interactions.
-          </span>
+          </div>
         </div>
       </div>
-      <div class="columns py-4">
+
+      <div class="columns py-5">
         <div class="column has-text-centered">
           <span class="is-size-4 has-text-weight-semibold">
             Top Spotlights of the week
@@ -60,23 +59,16 @@
           </div>
         </div>
       </div>
-      <div class="columns">
+
+      <div class="columns tap-me is-vcentered">
         <div class="column has-text-centered">
-          <span>
+          <div class="is-size-1 has-text-white has-text-weight-bold">
             Ready to sign up?
-          </span>
+          </div>
           </br>
           <button class="button is-yellow brand-buttons has-text-white has-text-weight-semibold" @click="openSignup">
             TAP ME
           </button>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column has-text-centered">
-          <span>
-            Read our Terms of Service & Privacy Policy, and if you have any </br>
-            questions please don't hesitate to Contact Us.
-          </span>
         </div>
       </div>
     </div>
@@ -124,10 +116,25 @@ export default {
 </script>
 
 <style>
+.hero-body {
+  padding: 0px !important;
+}
+
+.creator {
+  background-image: url("../assets/creators-img.png");
+  min-height: 300px;
+}
+
+.tap-me {
+  background-image: url("../assets/miami-img.png");
+  min-height: 450px;
+}
+
 .spotlights {
   display: inline-block;
   cursor: pointer;
 }
+
 .spotlight-photo {
   max-width:  256px;
 }
@@ -136,6 +143,7 @@ export default {
   width: 300px;
   height: 50px;
 }
+
 .grey-box {
   background: rgb(234, 234, 234) !important;
 }

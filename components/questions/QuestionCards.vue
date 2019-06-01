@@ -18,11 +18,9 @@
             </v-avatar>
           </div>
           <div class="nameAndTitle">
-            <div
-              class="has-text-weight-bold tight-line-height is-size-5"
-              @click="openUserProfileTab(asker.username)"
-            >
-              {{ asker.first_name + ' ' + asker.last_name }}
+            <div class="has-text-weight-bold tight-line-height is-size-5"
+              @click="openUserProfileTab(asker.username)">
+                {{ asker.first_name + ' ' + asker.last_name }}
               <br />
             </div>
             <div class="has-text-weight-light is-size-6">
