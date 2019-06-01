@@ -132,7 +132,7 @@ export default {
     playerInitialize() {
       const options = {
         controls: true,
-        fluid: false,
+        fluid: true,
         loop: true,
         controlBar: {
           volumePanel: false,
@@ -146,9 +146,6 @@ export default {
             audio: true,
             video: true,
             maxLength: 300,
-            debug: true,
-            frameWidth: 600,
-            frameHeight: 400,
           }
         }
       }

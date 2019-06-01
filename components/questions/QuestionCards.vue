@@ -4,8 +4,7 @@
       v-for="{ id, question, asker, spiels_count, founder } in questions"
       :key="id"
       class="home-bg question-cell"
-      @click="selectQuestion(id)"
-    >
+      @click="selectQuestion(id)">
       <div class="columns is-mobile">
         <div class="column is-6 is-narrow">
           <div class="column is-3 is-pulled-left">
@@ -52,10 +51,8 @@
             </div>
           </div>
         </div>
-        <div
-          v-else
-          class="spielIndicator founderInterview has-text-centered has-text-blue"
-        >
+        <div v-else
+          class="spielIndicator founderInterview has-text-centered has-text-blue">
           Founder Interview
         </div>
       </div>
@@ -104,10 +101,7 @@ export default {
     openUserProfileTab(username) {
       this.clickedOnUser = true
       const routeData = this.$router.resolve({
-        name: 'profile',
-        params: {
-          username: `${username}`
-        }
+        path: `/profile/${username}`
       })
       window.open(routeData.href, '_blank')
     }

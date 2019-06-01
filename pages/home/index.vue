@@ -2,7 +2,7 @@
   <div class="">
     <div v-if="!questionSelected">
       <div class="columns is-centered pt-5">
-        <div class="column is-4-desktop is-6-tablet is-10-mobile mx-auto">
+        <div class="column is-4-desktop is-6-tablet is-12-mobile mx-auto">
           <div v-if="showCompleteProfileLink" class="has-text-centered pb-2">
             Please Complete Your <a @click="sendToAccount">Profile</a>
           </div>
