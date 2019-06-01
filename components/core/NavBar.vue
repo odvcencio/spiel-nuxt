@@ -9,7 +9,9 @@
           app
           >
           <v-toolbar-title>
-            <a><img class="mt-2 mx-3" src="../../static/logo.png"></a>
+            <nuxt-link to="/">
+              <img class="mt-2 mx-3 nav-image" src="../../static/logo.png">
+            </nuxt-link>
           </v-toolbar-title>
           <div class="mx-4 is-hidden-touch">
             <nuxt-link to="/home">
@@ -129,6 +131,10 @@ export default {
 </script>
 
 <style lang="scss">
+.nav-image {
+  min-width: 75px;
+}
+
 .navbar-spacer {
   background-color: rgb(240, 184, 53);
 }

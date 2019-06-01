@@ -81,8 +81,7 @@ export default {
       )
     },
   },
-  mounted: function()
-  {
+  mounted: function() {
     this.getUser();
   },
   components: {
@@ -90,6 +89,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .avatar {
   margin-bottom: 20px;

@@ -1,25 +1,68 @@
 <template>
-  <section class="container">
-    <!-- <div>
-      <logo />
-      <h1 class="title">
-        web_ssr
-      </h1>
-      <h2 class="subtitle">
-        SSR spiel web app
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
+  <section class="hero founder-container">
+    <div class="hero-body home-bg">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <span class="is-size-1 has-text-weight-bold">
+            A Founder Community
+          </span>
+          </br>
+          <span class="is-size-5 has-text-weight-light">
+            A digital Q&A community for </br>
+            Founders to connect and help one another.
+          </span>
+        </div>
       </div>
-    </div> -->
+      <div class="columns is-centered">
+        <div class="column is-6-desktop has-text-centered grey-box">
+          <span class="is-size-5">
+            Free Forever
+          </span>
+          </br></br>
+          <button class="button is-blue get-started">
+            GET STARTED
+          </button>
+          </br></br>
+          <span class="is-size-7 has-text-weight-light has-text-gray">
+            Join a community of everyday creators & professionals
+          </span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <span>
+            Connect with Creators
+          </span>
+          </br>
+          <span>
+            Within Spiel we provide everyday creators like </br>
+            you the tools to faciliate meaningful interactions.
+          </span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <span>
+            Top Spotlights of the week
+          </span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <span>
+            Ready to sign up?
+          </span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <span>
+            Read our Terms of Service & Privacy Policy, and if you have any </br>
+            questions please don't hesitate to Contact Us.
+          </span>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -27,9 +70,6 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
-  fetch ({ params, redirect }) {
-    redirect(301, '/home')
-  },
   components: {
     Logo
   }
@@ -37,13 +77,19 @@ export default {
 </script>
 
 <style>
-.container {
+.get-started {
+  width: 300px;
+  height: 50px;
+}
+.grey-box {
+  background: rgb(234, 234, 234) !important;
+}
+
+.founder-container {
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  width: 100%;
+  background: #fff !important;
 }
 
 .title {

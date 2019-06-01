@@ -33,9 +33,13 @@ export default {
     Footer
   },
   async mounted() {
-    let token = window.localStorage.getItem('CognitoIdentityServiceProvider.3t2gp1mkch8p4mm3eksg7gs7tj.oscar@tryspiel.com.accessToken')
+    let key = process.env.localStorageKey + process.env.cognitoClientID + '.'
+    let lastAuthUser = window.localStorage.getItem(key + 'LastAuthUser')
 
-    if (token !== null) {
+    if (lastAuthUser !== null) {
+      let tokenKey = key + lastAuthUser + '.accessToken'
+      let token = window.localStorage.getItem(tokenKey)
+
       this.$store.commit('user/setAuth', token)
       Cookie.set('auth', token)
 
@@ -84,7 +88,6 @@ $colors: (
   -moz-osx-font-smoothing: grayscale;
   background: rgb(234, 234, 234) !important;
   margin: 0 auto;
-  padding: 30px;
   display: flex;
   flex-direction: column;
 }
