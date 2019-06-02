@@ -9,22 +9,22 @@
     <div v-if="hasComments" class="columns py-2 is-centered">
       <div v-for="{ id, commenter, comment, created_time } in comments"
         :key="id"
-        class="home-bg column is-4">
-        <div class="is-size-5 has-text-left tight-line-height">
+        class="home-bg column is-4 is-10-touch mx-auto">
+        <div class="is-size-5 tight-line-height columns pa-2">
           <v-avatar size="65" color="grey lighten-4" class="mx-1">
             <v-img
               :src="commenter.profile_photo_url"
               alt="avatar">
             </v-img>
           </v-avatar>
-          <div class="name-tag">
+          <div class="name-tag has-text-left">
             {{ commenter.first_name }} {{ commenter.last_name }}
             </br>
             <div class="is-size-6 has-text-gray has-text-weight-light">
               {{ commenter.title }} at {{ commenter.company }}
             </div>
           </div>
-          <div class="name-tag">
+          <div class="column has-text-right is-size-6 pa-2">
             {{ created_time | formatTime }}
           </div>
         </div>
@@ -40,8 +40,7 @@
 import SpielPlayer from '@/components/spiels/SpielPlayer.vue'
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
+var moment = require('moment-twitter');
 
 export default {
   head: {
@@ -74,11 +73,9 @@ export default {
   filters: {
     formatTime: function(value) {
       if (!value) return
-      TimeAgo.addLocale(en)
-      const timeAgo = new TimeAgo('en-US')
-      const createdTime = new Date(value)
+      var createdTime = moment(value).twitterShort()
 
-      return timeAgo.format(Date.now() - createdTime, 'twitter')
+      return createdTime
     }
   },
   name: 'Spiel',
@@ -141,6 +138,9 @@ export default {
 </script>
 
 <style>
+.timestamp {
+  display: inline-flex;
+}
 .name-tag {
   display: inline-block;
 }

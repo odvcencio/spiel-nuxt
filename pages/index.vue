@@ -21,7 +21,7 @@
           <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
             GET STARTED
           </button>
-          <div class="py-3 is-size-7 has-text-weight-light has-text-gray">
+          <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
             Join a community of everyday creators & professionals
           </div>
         </div>
