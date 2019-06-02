@@ -6,10 +6,32 @@
     <div class="columns py-2 is-centered has-text-centered">
       <div id="container" class="column center-video"></div>
     </div>
-    <div v-if="hasComments" class="columns py-2 is-centered">
-      <div v-for="{ id, commenter, comment, created_time } in comments"
-        :key="id"
-        class="home-bg column is-4 is-10-touch mx-auto">
+    <div v-if="isLoggedIn" class="columns py-2 is-centered is-vcentered">
+      <div class="column home-bg mx-auto is-6">
+        <div v-if="!hasIncompleteProfile">
+          <v-avatar size="32" color="grey lighten-4" class="mx-1">
+            <v-img
+              :src="avatar"
+              alt="avatar">
+            </v-img>
+          </v-avatar>
+          <div class="textarea-container">
+            <textarea v-model="comment" class="textarea comment-box" cols="200" :placeholder='placeholder' rows="1"/>
+          </div>
+        </div>
+        <div v-else class="is-size-5">
+          Please Complete Your Profile To Leave a Comment
+        </div>
+        <div class="py-3" v-if="comment !== ''">
+          <button class="button is-blue is-pulled-right" @click="postComment">
+            Comment
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="hasComments" v-for="{ id, commenter, comment, created_time } in comments"
+      :key="id" class="columns py-2 is-centered" :id="getCommentHash(id)">
+      <div class="home-bg column is-4 is-10-touch mx-auto">
         <div class="is-size-5 tight-line-height columns pa-2">
           <v-avatar size="65" color="grey lighten-4" class="mx-1">
             <v-img
@@ -40,6 +62,7 @@
 import SpielPlayer from '@/components/spiels/SpielPlayer.vue'
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
+import { mapGetters, mapState } from 'vuex'
 var moment = require('moment-twitter');
 
 export default {
@@ -56,16 +79,28 @@ export default {
     let uri = `https://dev.tryspiel.com/api/v1/spiels/${context.params.id}`
     return context.$axios.get(uri)
       .then((res) => {
+        let firstName   = res.data.data.spiel.spieler.first_name
+        let placeholder = `Leave ${firstName} a comment!`
+
         return {
-          spiel:      res.data.data.spiel,
-          spieler:    res.data.data.spiel.spieler,
-          question:   res.data.data.spiel.question,
-          url:        res.data.data.spiel.video_url,
-          comments:   res.data.data.spiel.comments
+          spiel:       res.data.data.spiel,
+          spieler:     res.data.data.spiel.spieler,
+          question:    res.data.data.spiel.question,
+          url:         res.data.data.spiel.video_url,
+          placeholder: placeholder,
+          comments:    res.data.data.spiel.comments
         }
       })
   },
   computed: {
+    ...mapGetters({
+      isLoggedIn: 'user/isLoggedIn',
+      hasIncompleteProfile: 'user/hasIncompleteProfile',
+    }),
+    ...mapState({
+      avatar: state => state.user.profilePicture,
+      token:  state => state.user.accessToken
+    }),
     hasComments: function() {
       return this.comments && this.comments.length > 0
     }
@@ -81,19 +116,42 @@ export default {
   name: 'Spiel',
   data() {
     return {
-      spiel:     {},
-      spieler:   {},
-      question:  {},
-      comments:  [],
-      url:       '',
-      isReady:   false,
-      player:    null
+      spiel:       {},
+      spieler:     {},
+      question:    {},
+      comments:    [],
+      comment:     '',
+      url:         '',
+      placeholder: '',
+      isReady:     false,
+      player:      null
     };
   },
   components: {
     SpielPlayer
   },
   methods: {
+    getCommentHash(id) {
+      return `comment-${id}`
+    },
+    async postComment() {
+      let uri = 'https://dev.tryspiel.com/api/v1/comment'
+      try {
+        const postObject = {
+          comment:  this.comment,
+          spiel_id: this.spiel.id
+        }
+
+        let message = await this.$axios.post(uri, postObject, { headers: { Authorization: this.token } })
+        let refresh = `https://dev.tryspiel.com/api/v1/spiels/${this.spiel.id}`
+        let { data } = await this.$axios.get(refresh)
+
+        this.comments = data.data.spiel.comments
+        this.comment  = ''
+      } catch(e) {
+        console.log(e)
+      }
+    },
     initPlayer() {
       var options = {
         "controls": true,
@@ -138,9 +196,20 @@ export default {
 </script>
 
 <style>
+.textarea-container {
+  display: inline-flex;
+  min-width: 475px;
+}
+
+.comment-box {
+  border: none;
+  width: 18ch;
+}
+
 .timestamp {
   display: inline-flex;
 }
+
 .name-tag {
   display: inline-block;
 }
