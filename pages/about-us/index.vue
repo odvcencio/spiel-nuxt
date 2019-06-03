@@ -53,7 +53,7 @@
 }
 
 .download {
-  margin-top:10%;
+  padding-bottom: 5%;
   display: block;
   margin-left: auto;
   margin-right: auto;

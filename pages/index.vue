@@ -1,16 +1,17 @@
 <template>
   <div class="pt-4 columns">
-    <div class="column is-8 mx-auto">
+    <div class="column is-7 mx-auto">
       <div class="founder-container px-5">
-        <div class="columns py-3">
+        <div class="columns py-5">
           <div class="column has-text-centered home-bg">
             <span class="is-size-1 has-text-weight-bold">
-              A Founder Community
+              Learn from Founders
             </span>
             </br>
             <div class="is-size-5 has-text-weight-light">
-              A digital Q&A community for </br>
-              Founders to connect with and help one another.
+              A community for Founders to connect<br/>
+              and help one another through questions,
+              video advice, and stories.
             </div>
           </div>
         </div>
@@ -19,7 +20,7 @@
             <div class="is-size-5 py-3">
               Free Forever
             </div>
-            <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
+            <button class="button is-blue brand-buttons has-text-weight-semibold" @click="brandButtons">
               GET STARTED
             </button>
             <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
@@ -43,7 +44,8 @@
           </div>
         </div>
       </div>
-      <div class="founder-container px-5">
+
+      <div class="spotlight-container px-5">
         <div class="columns">
           <div class="column has-text-centered">
             <div class="is-size-4 has-text-weight-semibold">
@@ -56,7 +58,6 @@
                 <div class="is-size-5 has-text-weight-bold">
                   {{ spotlight.spieler.first_name }} {{ spotlight.spieler.last_name }}
                 </div>
-                </br>
                 <div class="is-size-6 has-text-gray has-text-weight-light">
                   {{ spotlight.spieler.title }} at {{ spotlight.spieler.company }}
                 </div>
@@ -67,24 +68,27 @@
       </div>
 
       <div class="mx-2 px-1">
-        <div class="columns tap-me is-vcentered">
-          <div class="column has-text-centered">
-            <div class="is-size-1 has-text-white has-text-weight-bold">
-              Ready to sign up?
+        <div class="columns tap-me">
+          <div class="column has-text-left">
+            <div class="is-size-3 has-text-white has-text-weight-bold">
+              Share your startup story
             </div>
+            <p style="color:white;">Are you a Founder working on a product to make the world a better<br/> place? Share your knowledge with our community and grow your<br/> audience of raving fans.</p>
             </br>
-            <button class="button is-yellow brand-buttons has-text-white has-text-weight-semibold" @click="openSignup">
-              TAP ME
+            <button class="button is-yellow learnmore-buttons has-text-white has-text-weight-semibold" @click="brandButtons">
+              Learn more
             </button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
 import SignupLogin from '~/components/core/SignupLogin.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   async asyncData (context) {
@@ -98,7 +102,19 @@ export default {
       spotlights: [],
     }
   },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'user/isLoggedIn',
+    }),
+  },
   methods: {
+    brandButtons() {
+      if (this.isLoggedIn) {
+        this.$router.push('/home')
+      } else {
+        this.openSignup()
+      }
+    },
     spotlightClicked(id) {
       const routeData = this.$router.resolve({
         path: `/spiel/${id}`,
@@ -136,9 +152,16 @@ export default {
   display: flex;
 }
 
+.learnmore-buttons {
+  width: 13%;
+  height: 40px;
+}
+
 .tap-me {
-  background: url("../assets/miami-img.png");
-  min-height: 400px;
+  background: rgb(50, 121, 126) !important;
+  min-height: 350px;
+  padding-left: 5%;
+  padding-top: 5%;
 }
 
 .spotlights {
@@ -151,16 +174,22 @@ export default {
 }
 
 .brand-buttons {
-  width: 300px;
+  width: 70%;
   height: 50px;
 }
 
 .grey-box {
   background: rgb(234, 234, 234) !important;
 }
-
+.spotlight-container {
+  background: #fff !important;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
 .founder-container {
   background: #fff !important;
+  height: 720px;
+  padding-top: 50px;
 }
 
 .title {
