@@ -12,8 +12,7 @@
               <v-img
                 :src="asker.profile_photo_url"
                 alt="avatar"
-                @click="openUserProfileTab(asker.username)"
-              >
+                @click="openUserProfileTab(asker.username)">
               </v-img>
             </v-avatar>
           </div>

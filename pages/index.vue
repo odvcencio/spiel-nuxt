@@ -1,6 +1,6 @@
 <template>
   <div class="pt-4 columns">
-    <div class="column is-10 mx-auto">
+    <div class="column is-8 mx-auto">
       <div class="founder-container px-5">
         <div class="columns py-3">
           <div class="column has-text-centered home-bg">
@@ -129,7 +129,7 @@ export default {
 }
 
 .creator {
-  background-image: url("../assets/creators-img.png");
+  background: url("../assets/creators-img.png");
   min-height: 400px;
   justify-content: center;
   flex-direction: column;
@@ -137,8 +137,8 @@ export default {
 }
 
 .tap-me {
-  background-image: url("../assets/miami-img.png");
-  min-height: 300px;
+  background: url("../assets/miami-img.png");
+  min-height: 400px;
 }
 
 .spotlights {
