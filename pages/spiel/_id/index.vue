@@ -1,58 +1,47 @@
 <template>
   <div class="pt-5">
-    <div class="is-size-4 py-2 has-text-centered">
-      {{ this.question.question }}
+    <div class="pt-2 columns">
+      <div class="column is-6 mx-auto">
+        <QuestionCards :questions="questionCard"/>
+      </div>
     </div>
-    <div class="columns py-2 is-centered has-text-centered">
-      <div id="container" class="column center-video"></div>
+    <div class="columns pb-2 is-centered has-text-centered px-4">
+      <div class="column home-bg is-6">
+        <div id="container" class="center-video">
+        </div>
+      </div>
     </div>
-    <div v-if="isLoggedIn" class="columns py-2 is-centered is-vcentered">
-      <div class="column home-bg mx-auto is-6">
-        <div v-if="!hasIncompleteProfile">
-          <v-avatar size="32" color="grey lighten-4" class="mx-1">
-            <v-img
-              :src="avatar"
-              alt="avatar">
-            </v-img>
-          </v-avatar>
-          <div class="textarea-container">
-            <textarea v-model="comment" class="textarea comment-box" cols="200" :placeholder='placeholder' rows="1"/>
+    <div v-if="isLoggedIn" class="columns py-2 is-centered px-4">
+      <div class="column home-bg is-6">
+        <div class="columns is-mobile px-2" v-if="!hasIncompleteProfile">
+          <div class="column is-1 pt-3">
+            <v-avatar size="32" color="grey lighten-4" class="pr-3">
+              <v-img :src="avatar"
+                alt="avatar">
+              </v-img>
+            </v-avatar>
+          </div>
+          <div class="column">
+            <div class="textarea-container">
+              <textarea v-model="comment"
+              class="textarea comment-box"
+              :placeholder='placeholder' rows="1"/>
+            </div>
           </div>
         </div>
         <div v-else class="is-size-5">
           Please Complete Your Profile To Leave a Comment
         </div>
-        <div class="py-3" v-if="comment !== ''">
-          <button class="button is-blue is-pulled-right" @click="postComment">
+        <div v-show="comment !== ''">
+          <button class="ma-0 button is-blue is-pulled-right" @click="postComment">
             Comment
           </button>
         </div>
       </div>
     </div>
-    <div v-if="hasComments" v-for="{ id, commenter, comment, created_time } in comments"
-      :key="id" class="columns py-2 is-centered" :id="getCommentHash(id)">
-      <div class="home-bg column is-4 is-10-touch mx-auto">
-        <div class="is-size-5 tight-line-height columns pa-2">
-          <v-avatar size="65" color="grey lighten-4" class="mx-1">
-            <v-img
-              :src="commenter.profile_photo_url"
-              alt="avatar">
-            </v-img>
-          </v-avatar>
-          <div class="name-tag has-text-left">
-            {{ commenter.first_name }} {{ commenter.last_name }}
-            </br>
-            <div class="is-size-6 has-text-gray has-text-weight-light">
-              {{ commenter.title }} at {{ commenter.company }}
-            </div>
-          </div>
-          <div class="column has-text-right is-size-6 pa-2">
-            {{ created_time | formatTime }}
-          </div>
-        </div>
-        <div class="is-size-5 py-2">
-          {{ comment }}
-        </div>
+    <div v-if="hasComments" class="pt-2 columns">
+      <div class="column mx-auto">
+        <Comments :comments="this.comments"/>
       </div>
     </div>
   </div>
@@ -60,10 +49,11 @@
 
 <script>
 import SpielPlayer from '@/components/spiels/SpielPlayer.vue'
+import QuestionCards from '@/components/questions/QuestionCards.vue'
+import Comments from '@/components/spiels/Comments.vue'
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
 import { mapGetters, mapState } from 'vuex'
-var moment = require('moment-twitter');
 
 export default {
   head: {
@@ -103,14 +93,10 @@ export default {
     }),
     hasComments: function() {
       return this.comments && this.comments.length > 0
-    }
-  },
-  filters: {
-    formatTime: function(value) {
-      if (!value) return
-      var createdTime = moment(value).twitterShort()
-
-      return createdTime
+    },
+    questionCard: function() {
+      let question = [this.question]
+      return question
     }
   },
   name: 'Spiel',
@@ -128,7 +114,9 @@ export default {
     };
   },
   components: {
-    SpielPlayer
+    SpielPlayer,
+    QuestionCards,
+    Comments
   },
   methods: {
     getCommentHash(id) {
@@ -197,13 +185,12 @@ export default {
 
 <style>
 .textarea-container {
-  display: inline-flex;
-  min-width: 475px;
+  display: inline-block;
+  width: 100%
 }
 
 .comment-box {
   border: none;
-  width: 18ch;
 }
 
 .timestamp {

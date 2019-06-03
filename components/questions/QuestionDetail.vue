@@ -49,10 +49,8 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="this.question.founder"
-        class="mt-3 has-text-blue founderInterview"
-      >
+      <div v-if="this.question.founder"
+        class="mt-3 has-text-blue founderInterview">
         Founder Interview
       </div>
     </div>

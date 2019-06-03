@@ -1,78 +1,86 @@
 <template>
-  <section class="pt-5 hero founder-container">
-    <div class="hero-body home-bg">
-      <div class="columns py-3">
-        <div class="column has-text-centered">
-          <span class="is-size-1 has-text-weight-bold">
-            A Founder Community
-          </span>
-          </br>
-          <span class="is-size-5 has-text-weight-light">
-            A digital Q&A community for </br>
-            Founders to connect with and help one another.
-          </span>
-        </div>
-      </div>
-      <div class="columns is-centered pt-3 pb-5">
-        <div class="column is-6-desktop has-text-centered grey-box">
-          <div class="is-size-5 py-3">
-            Free Forever
-          </div>
-          <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
-            GET STARTED
-          </button>
-          <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
-            Join a community of everyday creators & professionals
+  <div class="pt-4 columns">
+    <div class="column is-10 mx-auto">
+      <div class="founder-container px-5">
+        <div class="columns py-3">
+          <div class="column has-text-centered home-bg">
+            <span class="is-size-1 has-text-weight-bold">
+              A Founder Community
+            </span>
+            </br>
+            <div class="is-size-5 has-text-weight-light">
+              A digital Q&A community for </br>
+              Founders to connect with and help one another.
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="columns is-vcentered creator py-5">
-        <div class="column container has-text-centered has-text-white">
-          <div class="is-size-2 has-text-weight-bold">
-            Connect with Creators
-          </div>
-          <div class="is-size-5">
-            Within Spiel we provide everyday creators like </br>
-            you the tools to faciliate meaningful interactions.
-          </div>
-        </div>
-      </div>
-
-      <div class="columns py-5">
-        <div class="column has-text-centered">
-          <span class="is-size-4 has-text-weight-semibold">
-            Top Spotlights of the week
-          </span>
-          <div class="py-3">
-            <div class="spotlights mx-2" v-for="spotlight in spotlights" :key="spotlight.id" @click="spotlightClicked(spotlight.id)">
-              <img class="spotlight-photo" :src="spotlight.thumbnail_url" />
-              </br>
-              <span class="is-size-5 has-text-weight-bold">
-                {{ spotlight.spieler.first_name }} {{ spotlight.spieler.last_name }}
-              </span>
-              </br>
-              <span class="is-size-6 has-text-gray has-text-weight-light">
-                {{ spotlight.spieler.title }} at {{ spotlight.spieler.company }}
-              </span>
+        <div class="columns is-centered pt-3 pb-5">
+          <div class="column is-6 has-text-centered grey-box">
+            <div class="is-size-5 py-3">
+              Free Forever
+            </div>
+            <button class="button is-blue brand-buttons has-text-weight-semibold" @click="openSignup">
+              GET STARTED
+            </button>
+            <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
+              Join a community of everyday creators & professionals
             </div>
           </div>
         </div>
       </div>
 
-      <div class="columns tap-me is-vcentered">
-        <div class="column has-text-centered">
-          <div class="is-size-1 has-text-white has-text-weight-bold">
-            Ready to sign up?
+
+      <div class="creator">
+        <div class="columns is-vcentered">
+          <div class="column has-text-centered has-text-white">
+            <div class="is-size-2 has-text-weight-bold">
+              Connect with Creators
+            </div>
+            <div class="is-size-5">
+              Within Spiel we provide everyday creators like </br>
+              you the tools to faciliate meaningful interactions.
+            </div>
           </div>
-          </br>
-          <button class="button is-yellow brand-buttons has-text-white has-text-weight-semibold" @click="openSignup">
-            TAP ME
-          </button>
+        </div>
+      </div>
+      <div class="founder-container px-5">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <div class="is-size-4 has-text-weight-semibold">
+              Top Spotlights of the week
+            </div>
+            <div class="py-3">
+              <div class="spotlights mx-2" v-for="spotlight in spotlights" :key="spotlight.id" @click="spotlightClicked(spotlight.id)">
+                <img class="spotlight-photo" :src="spotlight.thumbnail_url" />
+                </br>
+                <div class="is-size-5 has-text-weight-bold">
+                  {{ spotlight.spieler.first_name }} {{ spotlight.spieler.last_name }}
+                </div>
+                </br>
+                <div class="is-size-6 has-text-gray has-text-weight-light">
+                  {{ spotlight.spieler.title }} at {{ spotlight.spieler.company }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-2 px-1">
+        <div class="columns tap-me is-vcentered">
+          <div class="column has-text-centered">
+            <div class="is-size-1 has-text-white has-text-weight-bold">
+              Ready to sign up?
+            </div>
+            </br>
+            <button class="button is-yellow brand-buttons has-text-white has-text-weight-semibold" @click="openSignup">
+              TAP ME
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -122,12 +130,15 @@ export default {
 
 .creator {
   background-image: url("../assets/creators-img.png");
-  min-height: 300px;
+  min-height: 400px;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
 }
 
 .tap-me {
   background-image: url("../assets/miami-img.png");
-  min-height: 450px;
+  min-height: 300px;
 }
 
 .spotlights {
@@ -149,9 +160,6 @@ export default {
 }
 
 .founder-container {
-  margin: 0 auto;
-  display: flex;
-  width: 100%;
   background: #fff !important;
 }
 

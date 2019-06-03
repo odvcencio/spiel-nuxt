@@ -67,6 +67,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'QuestionCards',
@@ -106,6 +107,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 .spielIndicator {
   width: 50px;
@@ -115,7 +117,6 @@ export default {
   margin-top: 4%;
 }
 .nameAndTitle {
-  //  background-color: #FFA500; testing positioning
   width: 90%;
   height: 70px;
   margin-top: 20px;
