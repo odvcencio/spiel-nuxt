@@ -1,46 +1,21 @@
 <template>
   <div class="pt-4 columns">
     <div class="column is-7 mx-auto">
-      <div class="founder-container px-5">
+      <div class="container-fs px-5">
         <div class="columns py-5">
-          <div class="column has-text-centered home-bg">
-            <span class="is-size-1 has-text-weight-bold">
-              Learn from Founders
+          <div class="column has-text-centered">
+            <span class="is-size-1 has-text-weight-bold" style="color:white;">
+              Founder Story
             </span>
             </br>
-            <div class="is-size-5 has-text-weight-light">
-              A community for Founders to connect<br/>
-              and help one another through questions,
-              video advice, and stories.
+            <div class="is-size-5 has-text-weight-light" style="color:white;">
+              Tell the world the story behind your<br/>
+              startup
             </div>
-          </div>
-        </div>
-        <div class="columns is-centered pt-3 pb-5">
-          <div class="column is-6 has-text-centered grey-box">
-            <div class="is-size-5 py-3">
-              Free Forever
-            </div>
-            <button class="button is-blue brand-buttons has-text-weight-semibold" @click="brandButtons">
+            <br/>
+            <button class="button is-white brand-buttons-fs has-text-weight-semibold" @click="brandButtons">
               GET STARTED
             </button>
-            <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
-              Join a community of everyday creators & professionals
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="creator">
-        <div class="columns is-vcentered">
-          <div class="column has-text-centered has-text-white">
-            <div class="is-size-2 has-text-weight-bold">
-              Connect with Creators
-            </div>
-            <div class="is-size-5">
-              Within Spiel we provide everyday creators like </br>
-              you the tools to faciliate meaningful interactions.
-            </div>
           </div>
         </div>
       </div>
@@ -49,7 +24,7 @@
         <div class="columns">
           <div class="column has-text-centered">
             <div class="is-size-4 has-text-weight-semibold">
-              Top Spotlights of the week
+              Top Founder Stories of the week
             </div>
             <div class="py-3">
               <div class="spotlights mx-2" v-for="spotlight in spotlights" :key="spotlight.id" @click="spotlightClicked(spotlight.id)">
@@ -67,16 +42,43 @@
         </div>
       </div>
 
+      <div class="creator-fs">
+        <div class="columns is-vcentered">
+          <div class="column has-text-centered has-text-white">
+            <img class="missionIcon" src="../../assets/mission-icon.png" />
+            <br/>
+            <div class="is-size-4 has-text-weight-bold" style="color:black;">
+              Share your mission
+            </div>
+            <div class="is-size-6" style="color:gray;">
+              Break the ice and start conversation with<br/>
+              people who are interested in your mission.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments-sf px-5">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <div class="is-size-3 has-text-weight-semibold">
+              Comments for Conversations
+            </div>
+            <p style="color:black;">Learn what others think about your mission,<br/>find believers who will back you</p>
+          </div>
+        </div>
+      </div>
+
       <div class="mx-2 px-1">
-        <div class="columns tap-me">
+        <div class="columns tap-me-fs">
           <div class="column has-text-left">
             <div class="is-size-3 has-text-white has-text-weight-bold">
-              Share your startup story
+              Ready to get started?
             </div>
-            <p style="color:white;">Are you a Founder working on a product to make the world a better<br/> place? Share your knowledge with our community and grow your<br/> audience of raving fans.</p>
+            <p style="color:white;">All questions are optional, and can be answered at<br/>your pace.</p>
             </br>
-            <button class="button is-yellow learn-more has-text-white has-text-weight-semibold" @click="learnMoreButtons">
-              Learn more
+            <button class="button is-yellow learn-more has-text-white has-text-weight-semibold" @click="letsGoButton">
+              LETS GO
             </button>
           </div>
         </div>
@@ -115,8 +117,8 @@ export default {
         this.openSignup()
       }
     },
-    learnMoreButtons() {
-      this.$router.push('/founder-story')
+    letsGoButton() {
+      this.$router.push('/founders')
     },
     spotlightClicked(id) {
       const routeData = this.$router.resolve({
@@ -143,12 +145,25 @@ export default {
 </script>
 
 <style>
+.comments-sf {
+  background: #fff !important;
+  height: 320px;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.missionIcon {
+    height: 150px;
+    width: 180px;
+    margin-bottom: 20px;
+}
+
 .hero-body {
   padding: 0px !important;
 }
 
-.creator {
-  background: url("../assets/creators-img.png");
+.creator-fs {
+  background: rgb(228, 240, 245) !important;
   min-height: 400px;
   justify-content: center;
   flex-direction: column;
@@ -160,11 +175,11 @@ export default {
   height: 40px;
 }
 
-.tap-me {
-  background: rgb(50, 121, 126) !important;
-  min-height: 420px;
+.tap-me-fs {
+  background: rgb(19, 91, 176) !important;
+  min-height: 350px;
   padding-left: 5%;
-  padding-top: 3%;
+  padding-top: 5%;
 }
 
 .spotlights {
@@ -176,23 +191,23 @@ export default {
   max-width:  256px;
 }
 
-.brand-buttons {
-  width: 70%;
+.brand-buttons-fs {
+  width: 30%;
   height: 50px;
 }
 
 .grey-box {
   background: rgb(234, 234, 234) !important;
 }
-.spotlight-container {
+/* .spotlight-container {
   background: #fff !important;
   padding-top: 10%;
   padding-bottom: 10%;
-}
-.founder-container {
-  background: #fff !important;
-  height: 35%;
-  padding-top: 30px;
+} */
+.container-fs {
+  background: rgb(50, 121, 126) !important;
+  height: 17%;
+  padding-top: 25px;
 }
 
 .title {

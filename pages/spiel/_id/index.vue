@@ -1,18 +1,20 @@
 <template>
   <div class="pt-5">
-    <div class="pt-2 columns">
-      <div class="column is-6 mx-auto">
+    <div class="pt-1 columns">
+      <div class="column home-bg is-4 mx-auto">
         <QuestionCards :questions="questionCard"/>
       </div>
     </div>
-    <div class="columns pb-2 is-centered has-text-centered px-4">
-      <div class="column home-bg is-6">
+
+    <div class="pt-1 columns">
+      <div class="column home-bg is-4 mx-auto">
         <div id="container" class="center-video">
         </div>
       </div>
     </div>
+
     <div v-if="isLoggedIn" class="columns py-2 is-centered px-4">
-      <div class="column home-bg is-6">
+      <div class="column home-bg is-4">
         <div class="columns is-mobile px-2" v-if="!hasIncompleteProfile">
           <div class="column is-1 pt-3">
             <v-avatar size="32" color="grey lighten-4" class="pr-3">
@@ -29,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div v-else class="is-size-5">
+        <div v-else class="is-size-4">
           Please Complete Your Profile To Leave a Comment
         </div>
         <div v-show="comment !== ''">
@@ -39,11 +41,13 @@
         </div>
       </div>
     </div>
-    <div v-if="hasComments" class="pt-2 columns">
-      <div class="column mx-auto">
+
+    <div v-if="hasComments" class="pt-1 columns">
+      <div class="column is-9 mx-auto">
         <Comments :comments="this.comments"/>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -184,6 +188,7 @@ export default {
 </script>
 
 <style>
+
 .textarea-container {
   display: inline-block;
   width: 100%
