@@ -15,7 +15,7 @@
 
     <div v-if="isLoggedIn" class="columns py-1 is-centered">
       <div class="column home-bg is-4-desktop">
-        <div class="columns is-mobile px-3" v-if="!hasIncompleteProfile">
+        <div class="columns is-mobile px-3">
           <div class="column is-1 pt-3">
             <v-avatar size="32" color="grey lighten-4" class="pr-3">
               <v-img :src="avatar"
@@ -40,8 +40,17 @@
         </div>
       </div>
     </div>
-    <div v-else class="is-size-4">
-      Please Complete Your Profile To Leave a Comment
+    <div v-else class="has-text-centered">
+      <div class="columns">
+        <div class="column home-bg is-4-desktop mx-auto">
+          <div v-if="hasIncompleteProfile" class="is-size-4">
+            Please Complete Your <nuxt-link to="/account">Profile</nuxt-link> To Leave a Comment
+          </div>
+          <div v-else class="is-size-4">
+            Please <a @click="openSignup">Sign Up</a> To Leave A Comment
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-if="hasComments" class="pt-1 columns">
@@ -56,6 +65,7 @@
 <script>
 import SpielPlayer from '@/components/spiels/SpielPlayer.vue'
 import QuestionCards from '@/components/questions/QuestionCards.vue'
+import SignupLogin from '@/components/core/SignupLogin.vue'
 import Comments from '@/components/spiels/Comments.vue'
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
@@ -122,7 +132,8 @@ export default {
   components: {
     SpielPlayer,
     QuestionCards,
-    Comments
+    Comments,
+    SignupLogin
   },
   methods: {
     getCommentHash(id) {
@@ -175,12 +186,19 @@ export default {
         src: url
       });
     },
-    isMobile() {
-      console.log(screen.width)
-      if (process.client) {
-
-        return screen.width <= 768
-      }
+    openSignup() {
+      this.$modal.open({
+        parent: this,
+        component: SignupLogin,
+        hasModalCard: true,
+        props: {
+          isSignup:     true,
+          enterPressed: this.enterPressed
+        },
+        onCancel: () => {
+          this.modalOpen = false;
+        }
+      })
     },
   },
   mounted: function() {

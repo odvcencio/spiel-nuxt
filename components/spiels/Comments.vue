@@ -3,7 +3,7 @@
     <div v-for="{ id, commenter, comment, created_time } in comments"
       :key="id" class="columns pb-1" :id="getCommentHash(id)">
       <div class="home-bg column mx-auto">
-        <div class="is-size-5 tight-line-height columns pa-2">
+        <div class="is-size-5 tight-line-title columns">
           <v-avatar size="65" color="grey lighten-4" class="ma-2">
             <v-img
               :src="commenter.profile_photo_url"
@@ -18,14 +18,14 @@
             </div>
           </div>
         </div>
-        <div class="columns">
+        <div class="columns is-mobile">
           <div class="column">
           </div>
-          <div class="column ml-4 is-11-desktop is-12-touch">
-            <div class="is-size-5">
+          <div class="column is-10-desktop is-11-touch">
+            <div class="is-size-5 pb-2">
               {{ comment }}
             </div>
-            <div class="is-size-6 has-text-weight-light has-text-gray">
+            <div class="pt-2 is-size-6 has-text-weight-light has-text-gray">
               {{ created_time | formatTime }}
             </div>
           </div>
@@ -67,4 +67,7 @@ export default {
 }
 </script>
 <style>
+.tight-line-title {
+  line-height: 90%;
+}
 </style>
