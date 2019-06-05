@@ -4,12 +4,12 @@
       <div class="container-fs px-5">
         <div class="columns py-5">
           <div class="column has-text-centered">
-            <span class="is-size-1 has-text-weight-bold" style="color:white;">
+            <span class="is-size-1 has-text-white has-text-weight-bold">
               Founder Story
             </span>
             </br>
-            <div class="is-size-5 has-text-weight-light" style="color:white;">
-              Tell the world the story behind your<br/>
+            <div class="is-size-5 has-text-weight-light has-text-white">
+              Tell the world the story behind your
               startup
             </div>
             <br/>
@@ -60,22 +60,28 @@
 
       <div class="comments-sf px-5">
         <div class="columns">
-          <div class="column has-text-centered">
+          <div class="column is-8 mx-auto has-text-centered py-5">
             <div class="is-size-3 has-text-weight-semibold">
               Comments for Conversations
             </div>
-            <p style="color:black;">Learn what others think about your mission,<br/>find believers who will back you</p>
+            <div>
+              Learn what others think about your mission,
+              find believers who will back you
+            </div>
           </div>
         </div>
       </div>
 
       <div class="mx-2 px-1">
         <div class="columns tap-me-fs">
-          <div class="column has-text-left">
-            <div class="is-size-3 has-text-white has-text-weight-bold">
+          <div class="column is-7 has-text-left has-text-white">
+            <div class="is-size-3 has-text-weight-bold">
               Ready to get started?
             </div>
-            <p style="color:white;">All questions are optional, and can be answered at<br/>your pace.</p>
+            <div>
+              All questions are optional, and can be answered at
+              your pace.
+            </div>
             </br>
             <button class="button is-yellow learn-more has-text-white has-text-weight-semibold" @click="letsGoButton">
               LETS GO
@@ -148,18 +154,12 @@ export default {
 .comments-sf {
   background: #fff !important;
   height: 320px;
-  padding-top: 10%;
-  padding-bottom: 10%;
 }
 
 .missionIcon {
     height: 150px;
     width: 180px;
     margin-bottom: 20px;
-}
-
-.hero-body {
-  padding: 0px !important;
 }
 
 .creator-fs {
@@ -170,65 +170,13 @@ export default {
   display: flex;
 }
 
-.learn-more {
-  width: 13%;
-  height: 40px;
-}
-
 .tap-me-fs {
   background: rgb(19, 91, 176) !important;
   min-height: 350px;
-  padding-left: 5%;
-  padding-top: 5%;
 }
 
-.spotlights {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.spotlight-photo {
-  max-width:  256px;
-}
-
-.brand-buttons-fs {
-  width: 30%;
-  height: 50px;
-}
-
-.grey-box {
-  background: rgb(234, 234, 234) !important;
-}
-/* .spotlight-container {
-  background: #fff !important;
-  padding-top: 10%;
-  padding-bottom: 10%;
-} */
 .container-fs {
   background: rgb(50, 121, 126) !important;
-  height: 17%;
   padding-top: 25px;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>

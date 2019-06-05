@@ -1,21 +1,21 @@
 <template>
   <div class="pt-5">
     <div class="pt-1 columns">
-      <div class="column home-bg is-4 mx-auto">
+      <div class="column home-bg is-4-desktop mx-auto">
         <QuestionCards :questions="questionCard"/>
       </div>
     </div>
 
     <div class="pt-1 columns">
-      <div class="column home-bg is-4 mx-auto">
+      <div class="column home-bg is-4-desktop mx-auto">
         <div id="container" class="center-video">
         </div>
       </div>
     </div>
 
-    <div v-if="isLoggedIn" class="columns py-2 is-centered px-4">
-      <div class="column home-bg is-4">
-        <div class="columns is-mobile px-2" v-if="!hasIncompleteProfile">
+    <div v-if="isLoggedIn" class="columns py-1 is-centered">
+      <div class="column home-bg is-4-desktop">
+        <div class="columns is-mobile px-3" v-if="!hasIncompleteProfile">
           <div class="column is-1 pt-3">
             <v-avatar size="32" color="grey lighten-4" class="pr-3">
               <v-img :src="avatar"
@@ -31,19 +31,21 @@
             </div>
           </div>
         </div>
-        <div v-else class="is-size-4">
-          Please Complete Your Profile To Leave a Comment
-        </div>
-        <div v-show="comment !== ''">
-          <button class="ma-0 button is-blue is-pulled-right" @click="postComment">
-            Comment
-          </button>
+        <div class="columns home-bg" v-show="comment !== ''">
+          <div class="column">
+            <button class="button is-blue is-pulled-right" @click="postComment">
+              Comment
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <div v-else class="is-size-4">
+      Please Complete Your Profile To Leave a Comment
+    </div>
 
     <div v-if="hasComments" class="pt-1 columns">
-      <div class="column is-9 mx-auto">
+      <div class="column is-4-desktop mx-auto">
         <Comments :comments="this.comments"/>
       </div>
     </div>
@@ -101,7 +103,7 @@ export default {
     questionCard: function() {
       let question = [this.question]
       return question
-    }
+    },
   },
   name: 'Spiel',
   data() {
@@ -172,6 +174,13 @@ export default {
         type: "application/x-mpegURL",
         src: url
       });
+    },
+    isMobile() {
+      console.log(screen.width)
+      if (process.client) {
+
+        return screen.width <= 768
+      }
     },
   },
   mounted: function() {

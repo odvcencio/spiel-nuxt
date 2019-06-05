@@ -14,13 +14,13 @@
               <v-img
                 :src="spiel.question.asker.profile_photo_url"
                 alt="avatar"
-                @click="openUserProfileTab(spiel.question.asker.username)">
+                @click="openUserProfileTab(spiel.question.asker.username, spiel.spieler.username)">
               </v-img>
             </v-avatar>
           </div>
           <div class="nameAndTitle">
             <div class="has-text-weight-bold tight-line-height is-size-5"
-              @click="openUserProfileTab(spiel.question.asker.username)">
+              @click="openUserProfileTab(spiel.question.asker.username, spiel.spieler.username)">
 
               {{ spiel.question.asker.first_name + ' ' + spiel.question.asker.last_name }}
 
@@ -54,7 +54,9 @@
 export default {
   name: 'SpielList',
   data() {
-      return {};
+      return {
+        usernameClicked: false
+      };
   },
   props: {
     userSpiels: {
@@ -62,27 +64,19 @@ export default {
     }
   },
   methods: {
-    openUserProfileTab(username) {
-      let routeData = this.$router.resolve(
-        {
-          name: 'profile',
-          params: {
-            username: `${username}`
-          }
-        }
-      );
-      window.open(routeData.href, '_blank');
+    openUserProfileTab(questionUsername, spielUsername) {
+      if (questionUsername !== spielUsername) {
+        this.usernameClicked = true
+        let routeData = this.$router.resolve({ path: `/profile/${questionUsername}` });
+        window.open(routeData.href, '_blank');
+      }
+      this.usernameClicked = false
     },
     openNewSpielTab(id) {
-      let routeData = this.$router.resolve(
-        {
-          name: 'spiel',
-          params: {
-            id: `${id}`
-          }
-        }
-      );
-      window.open(routeData.href, '_blank');
+      if (!this.usernameClicked) {
+        let routeData = this.$router.resolve({ path:`/spiel/${id}` });
+        window.open(routeData.href, '_blank');
+      }
     }
   },
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-for="{ id, commenter, comment, created_time } in comments"
-      :key="id" class="columns pb-1 is-centered px-4" :id="getCommentHash(id)">
-      <div class="home-bg column is-6 is-10-touch mx-auto">
+      :key="id" class="columns pb-1" :id="getCommentHash(id)">
+      <div class="home-bg column mx-auto">
         <div class="is-size-5 tight-line-height columns pa-2">
           <v-avatar size="65" color="grey lighten-4" class="ma-2">
             <v-img
@@ -19,9 +19,9 @@
           </div>
         </div>
         <div class="columns">
-          <div class="column is-1">
+          <div class="column">
           </div>
-          <div class="column ml-4">
+          <div class="column ml-4 is-11-desktop is-12-touch">
             <div class="is-size-5">
               {{ comment }}
             </div>

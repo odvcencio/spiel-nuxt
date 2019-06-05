@@ -20,9 +20,11 @@
             <div class="is-size-5 py-3">
               Free Forever
             </div>
-            <button class="button is-blue brand-buttons has-text-weight-semibold" @click="brandButtons">
-              GET STARTED
-            </button>
+            <div class="column is-12 mx-auto">
+              <button class="is-fullwidth button is-blue get-started has-text-weight-semibold" @click="getStarted">
+                GET STARTED
+              </button>
+            </div>
             <div class="py-3 is-size-6 has-text-weight-light has-text-gray">
               Join a community of everyday creators & professionals
             </div>
@@ -45,7 +47,7 @@
         </div>
       </div>
 
-      <div class="spotlight-container px-5">
+      <div class="spotlight-container pa-5">
         <div class="columns">
           <div class="column has-text-centered">
             <div class="is-size-4 has-text-weight-semibold">
@@ -67,17 +69,23 @@
         </div>
       </div>
 
-      <div class="mx-2 px-1">
-        <div class="columns tap-me">
-          <div class="column has-text-left">
-            <div class="is-size-3 has-text-white has-text-weight-bold">
-              Share your startup story
+      <div class="py-2">
+        <div class="tap-me">
+          <div class="columns mx-2 px-1">
+            <div class="column has-text-left">
+              <div class="is-size-3 has-text-white has-text-weight-bold">
+                Share your startup story
+              </div>
+              <div class="has-text-white">
+                Are you a Founder working on a product to make the world a better
+                place? Share your knowledge with our community and grow your
+                audience of raving fans.
+              </div>
+              </br>
+              <button class="button is-medium is-yellow has-text-white has-text-weight-semibold" @click="learnMoreButton">
+                Learn more
+              </button>
             </div>
-            <p style="color:white;">Are you a Founder working on a product to make the world a better<br/> place? Share your knowledge with our community and grow your<br/> audience of raving fans.</p>
-            </br>
-            <button class="button is-yellow learn-more has-text-white has-text-weight-semibold" @click="learnMoreButtons">
-              Learn more
-            </button>
           </div>
         </div>
       </div>
@@ -108,14 +116,14 @@ export default {
     }),
   },
   methods: {
-    brandButtons() {
+    getStarted() {
       if (this.isLoggedIn) {
         this.$router.push('/home')
       } else {
         this.openSignup()
       }
     },
-    learnMoreButtons() {
+    learnMoreButton() {
       this.$router.push('/founder-story')
     },
     spotlightClicked(id) {
@@ -155,16 +163,9 @@ export default {
   display: flex;
 }
 
-.learn-more {
-  width: 13%;
-  height: 40px;
-}
-
 .tap-me {
   background: rgb(50, 121, 126) !important;
-  min-height: 420px;
-  padding-left: 5%;
-  padding-top: 3%;
+  min-height: 300px;
 }
 
 .spotlights {
@@ -176,22 +177,20 @@ export default {
   max-width:  256px;
 }
 
-.brand-buttons {
-  width: 70%;
+.get-started {
   height: 50px;
 }
 
 .grey-box {
   background: rgb(234, 234, 234) !important;
 }
+
 .spotlight-container {
   background: #fff !important;
-  padding-top: 10%;
-  padding-bottom: 10%;
 }
+
 .founder-container {
   background: #fff !important;
-  height: 35%;
   padding-top: 30px;
 }
 

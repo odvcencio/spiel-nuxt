@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div v-if="questions.length > 1">
         <hr class="divider-card" />
       </div>
     </div>
