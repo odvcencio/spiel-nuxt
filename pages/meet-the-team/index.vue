@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="columns has-text-centered pt-5">
-      <div class="column">
+    <div class="columns is-centered has-text-centered pt-5">
+      <div class="column is-10">
         <div class="is-size-3 tight-line-height">
           Alex Cruz
         </div>
@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <div class="columns has-text-centered">
-      <div class="column">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-10">
         <div class="is-size-3 tight-line-height">
           Don Kader
         </div>
@@ -36,8 +36,8 @@
         </div>
       </div>
     </div>
-    <div class="columns has-text-centered mb-0">
-      <div class="column">
+    <div class="columns is-centered has-text-centered mb-0">
+      <div class="column is-10">
         <div class="is-size-3 tight-line-height">
           Oscar Villavicencio
         </div>

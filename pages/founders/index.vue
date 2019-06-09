@@ -9,7 +9,7 @@
       <Account isFounder/>
     </div>
     <div v-if="questions.length > 0 && !hasIncompleteProfile" class="columns is-centered pt-3">
-      <div class="column is-6">
+      <div class="column is-6 pt-5">
         <QuestionList v-on:notReadyYet="getFounderQuestions" :questions="questions"/>
       </div>
     </div>
@@ -34,7 +34,7 @@ export default {
     const uri = `https://dev.tryspiel.com/api/v1/founderQuestions`
     const token = store.state.user.accessToken
 
-    if (token !== undefined) {
+    if (token) {
       let config = {
         headers: {
           Authorization: token
