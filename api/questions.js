@@ -26,8 +26,7 @@ export default {
   },
   getFounderQuestions(cb, token) {
     const uri = `https://dev.tryspiel.com/api/v1/founderQuestions`
-    axios
-      .get(uri, { headers: { Authorization: token } })
+    axios.get(uri, { headers: { Authorization: token } })
       .then(response => {
         cb(response.data.data.founderQuestions)
       })

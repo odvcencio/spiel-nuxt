@@ -27,7 +27,11 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   async fetch ({ store, params }) {
     if (store.state.user.accessToken && process.server) {
-      await store.dispatch('user/getAccountDetails')
+      try {
+        await store.dispatch('user/getAccountDetails')
+      } catch(e) {
+        return
+      }
     }
   },
   async asyncData ({ store, app }) {
@@ -42,10 +46,9 @@ export default {
       }
       try {
         let { data } = await app.$axios.get(uri, config)
-        console.log(data.data.founderQuestions)
         return { questions: data.data.founderQuestions }
       } catch(e) {
-        console.log(e.response)
+        console.log('hello')
       }
     }
   },

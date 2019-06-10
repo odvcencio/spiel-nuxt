@@ -105,9 +105,13 @@ export const actions = {
       } catch (e) {
         if (e.response.status === 401 ||
             e.response.data.error_message === 'Token is expired') {
-          console.log('expired or unauthorized')
-          token = await dispatch('checkLoggedInUser')
-          console.log(token)
+          try {
+            if (process.client) {
+              await dispatch('checkLoggedInUser')
+            }
+          } catch(e) {
+            return
+          }
         }
       }
     }
