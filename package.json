@@ -29,7 +29,7 @@
     "css-loader": "^2.1.1",
     "moment": "^2.24.0",
     "moment-twitter": "^0.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nuxt": "latest",
     "nuxt-buefy": "^0.3.6",
     "nuxt-fontawesome": "^0.4.0",
